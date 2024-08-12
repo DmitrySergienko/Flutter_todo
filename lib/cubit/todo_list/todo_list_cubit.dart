@@ -1,15 +1,17 @@
-import 'package:bloc/bloc.dart';
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../models/todo_model.dart';
 
 part 'todo_list_state.dart';
 
-class TodoListCubit extends Cubit<TodoListState> {
+class TodoListCubit extends HydratedCubit<TodoListState> {
   TodoListCubit() : super(TodoListState.initial());
 
   void addTodo(String todoDesc) {
-    final newTodo = Todo(desc: todoDesc);
+    final newTodo = Todo(id: DateTime.now().toString(), desc: todoDesc);
     final newTodos = [...state.todos, newTodo];
 
     emit(state.copyWith(todos: newTodos));
@@ -38,8 +40,18 @@ class TodoListCubit extends Cubit<TodoListState> {
   }
 
   void removeTodo(Todo todo) {
-    final newTodo = state.todos.where((Todo t) => t.id != todo.id).toList();
+    final newTodos = state.todos.where((Todo t) => t.id != todo.id).toList();
 
-    emit(state.copyWith(todos: newTodo));
+    emit(state.copyWith(todos: newTodos));
+  }
+
+  @override
+  TodoListState? fromJson(Map<String, dynamic> json) {
+    return TodoListState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(TodoListState state) {
+    return state.toMap();
   }
 }

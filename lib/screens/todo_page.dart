@@ -1,4 +1,3 @@
-import 'package:doto_cubit/cubit/active_todo_count/active_todo_count_cubit.dart';
 import 'package:doto_cubit/cubit/cubits.dart';
 import 'package:doto_cubit/screens/searching_screen.dart';
 import 'package:doto_cubit/screens/show_todo.dart';

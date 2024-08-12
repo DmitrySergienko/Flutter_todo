@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,4 +25,21 @@ class Todo extends Equatable {
   String toString() {
     return 'Todo{id: $id, desc: $desc, completed: $completed}';
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'desc': desc,
+      'completed': completed,
+    };
+  }
+
+  factory Todo.fromMap(Map<String, dynamic> map) {
+    return Todo(
+      id: map['id'] ?? '',
+      desc: map['desc'] ?? '',
+      completed: map['completed'] ?? false,
+    );
+  }
+  factory Todo.fromJson(String source) => Todo.fromMap(json.decode(source));
 }

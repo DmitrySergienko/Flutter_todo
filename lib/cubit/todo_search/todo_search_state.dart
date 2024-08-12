@@ -24,4 +24,21 @@ class TodoSearchState extends Equatable {
       searchTerm: searchTerm ?? this.searchTerm,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'searchTerm': searchTerm,
+    };
+  }
+
+  factory TodoSearchState.fromMap(Map<String, dynamic> map) {
+    return TodoSearchState(
+      searchTerm: map['searchTerm'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory TodoSearchState.fromJson(String source) =>
+      TodoSearchState.fromMap(json.decode(source));
 }

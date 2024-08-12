@@ -22,7 +22,7 @@ class ShowTodoScreen extends StatelessWidget {
               );
             }
         ),
-        BlocListener<TodoFilterCubit, TodoFilerState>(
+        BlocListener<TodoFilterCubit, TodoFilterState>(
             listener: (context, state){
               context.read<FilteredTodoCubit>().setFilterTodos(
                 state.filter,

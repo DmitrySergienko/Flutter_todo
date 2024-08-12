@@ -11,11 +11,10 @@ class FilteredTodoState extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [filteredTodos];
 
   factory FilteredTodoState.initial() {
-    return  FilteredTodoState(filteredTodos: []);
+    return const FilteredTodoState(filteredTodos: []);
   }
 
   FilteredTodoState copyWith({
@@ -25,4 +24,22 @@ class FilteredTodoState extends Equatable {
       filteredTodos: filteredTodos ?? this.filteredTodos,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'filteredTodos': filteredTodos.map((todo) => todo.toMap()).toList(),
+    };
+  }
+
+  factory FilteredTodoState.fromMap(Map<String, dynamic> map) {
+    return FilteredTodoState(
+      filteredTodos: List<Todo>.from(
+          map['filteredTodos']?.map((item) => Todo.fromMap(item)) ?? const []),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory FilteredTodoState.fromJson(String source) =>
+      FilteredTodoState.fromMap(json.decode(source));
 }
